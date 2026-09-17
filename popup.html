@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Prospección Maps</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="head">
+    <div class="head-title">
+      <h1>Prospección Maps</h1>
+      <span class="badge" id="badgeTotal">0 acumulados</span>
+    </div>
+    <p class="head-query" id="tabQuery">Abre una búsqueda en Google Maps</p>
+  </header>
+
+  <section class="block">
+    <div class="row">
+      <label class="lbl" for="modo">Modo</label>
+      <select id="modo">
+        <option value="rapido">Rápido (sólo listado)</option>
+        <option value="completo">Completo (abre cada ficha)</option>
+      </select>
+    </div>
+    <div class="row">
+      <label class="lbl" for="limite">Máx. resultados</label>
+      <input type="number" id="limite" min="1" max="1000" step="10" value="200">
+    </div>
+    <p class="hint" id="modoHint">Rápido: ~1–2 min por búsqueda. Completo: ~2 s por ficha, datos de web y teléfono fiables.</p>
+  </section>
+
+  <section class="block actions">
+    <button id="btnStart" class="btn btn-primary">Iniciar extracción</button>
+    <button id="btnStop" class="btn btn-danger" hidden>Detener</button>
+  </section>
+
+  <section class="block live" id="liveBox">
+    <div class="live-row">
+      <span class="live-label">Extraídos</span>
+      <span class="live-value"><b id="cExtracted">0</b> / <span id="cEstimated">0</span></span>
+    </div>
+    <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+    <p class="current" id="cCurrent">—</p>
+  </section>
+
+  <section class="block highlight">
+    <div class="hl-main">
+      <span class="hl-number" id="cSinWeb">0</span>
+      <span class="hl-text">negocios <b>sin web</b> acumulados</span>
+    </div>
+    <div class="hl-sub">
+      <span id="cTotal">0</span> totales ·
+      <span id="cConWeb">0</span> con web ·
+      <span id="cSoloRedes">0</span> sólo redes
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="grid2">
+      <button id="btnXlsx" class="btn">Exportar XLSX</button>
+      <button id="btnCsv" class="btn">Exportar CSV</button>
+    </div>
+    <button id="btnXlsxSinWeb" class="btn btn-accent full">Exportar sólo SIN web</button>
+  </section>
+
+  <section class="block warnings" id="warnBox" hidden>
+    <button class="warn-toggle" id="warnToggle">
+      <span id="warnCount">0</span> avisos de la última extracción
+      <span class="chev">▾</span>
+    </button>
+    <ul class="warn-list" id="warnList" hidden></ul>
+  </section>
+
+  <section class="block danger-zone">
+    <button id="btnClear" class="btn btn-ghost full">Vaciar datos acumulados</button>
+    <div class="confirm" id="clearConfirm" hidden>
+      <span>¿Borrar los <b id="clearCount">0</b> registros guardados?</span>
+      <div class="grid2">
+        <button id="btnClearYes" class="btn btn-danger">Sí, borrar</button>
+        <button id="btnClearNo" class="btn btn-ghost">Cancelar</button>
+      </div>
+    </div>
+  </section>
+
+  <p class="msg" id="msg" hidden></p>
+
+  <footer class="foot">
+    Los datos se acumulan entre búsquedas. Úsalo a ritmo moderado.
+  </footer>
+
+  <script src="lib/storage.js"></script>
+  <script src="lib/export.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
